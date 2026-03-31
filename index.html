@@ -38,6 +38,34 @@
             margin-bottom: 10px;
         }
 
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .control-group select,
+        .control-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -61,6 +89,26 @@
         .product h3 {
             color: #667eea;
             margin-bottom: 10px;
+        }
+
+        .sizes {
+            margin: 15px 0;
+        }
+
+        .size-btn {
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .size-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
         }
 
         .price {
@@ -106,6 +154,33 @@
             border-bottom: 1px solid #eee;
         }
 
+        .cart-item button {
+            background: #ff4444;
+            padding: 5px 10px;
+            font-size: 0.8em;
+        }
+
+        .coupon-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .coupon-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .coupon-input input {
+            flex: 1;
+        }
+
+        .coupon-input button {
+            flex: 0;
+        }
+
         .total {
             font-size: 1.5em;
             font-weight: bold;
@@ -125,6 +200,30 @@
         .whatsapp-btn:hover {
             background: #1ea952;
         }
+
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -134,63 +233,196 @@
             <p>Pipoca Gourmet Premium</p>
         </header>
 
+        <div class="controls">
+            <div class="control-group">
+                <label>Embalagem:</label>
+                <select id="packaging">
+                    <option value="cone">Saco Cone</option>
+                    <option value="kraft">Kraft</option>
+                    <option value="bolha">Copo Bolha</option>
+                    <option value="pacote">Pacote</option>
+                </select>
+            </div>
+        </div>
+
         <div class="products" id="products"></div>
 
         <div class="cart">
             <h2>🛒 Seu Pedido</h2>
+            
+            <div class="coupon-section">
+                <h3>Cupom de Desconto</h3>
+                <div class="coupon-input">
+                    <input type="text" id="couponCode" placeholder="Digite seu cupom">
+                    <button onclick="aplicarCupom()">Aplicar</button>
+                </div>
+                <div id="couponStatus"></div>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">Cupons disponíveis: SWEET5 (5%) | SWEET10 (10%)</p>
+            </div>
+
             <div id="cartItems"></div>
-            <div class="total">Total: R$ <span id="total">0.00</span></div>
+            
+            <div class="total">
+                Desconto: -R$ <span id="discount">0.00</span><br>
+                Total: R$ <span id="total">0.00</span>
+            </div>
+
+            <div class="control-group">
+                <label>Data de Entrega (mínimo 15 dias):</label>
+                <input type="date" id="deliveryDate" min="">
+            </div>
+
+            <div class="control-group">
+                <label>Forma de Pagamento:</label>
+                <select id="paymentMethod">
+                    <option value="pix">PIX</option>
+                    <option value="credito">Cartão de Crédito</option>
+                    <option value="debito">Cartão de Débito</option>
+                    <option value="dinheiro">Dinheiro</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Observações:</label>
+                <input type="text" id="observations" placeholder="Ex: deixe a pipoca azul">
+            </div>
+
             <button class="whatsapp-btn" onclick="enviarWhatsApp()">📱 Enviar Pedido via WhatsApp</button>
         </div>
     </div>
 
     <script>
-        const produtos = [
-            { id: 1, nome: 'Leite Ninho', preco: 8.00 },
-            { id: 2, nome: 'Choconinho', preco: 8.00 },
-            { id: 3, nome: 'Nesquik', preco: 8.00 },
-            { id: 4, nome: 'Churros', preco: 8.00 },
-            { id: 5, nome: 'Maracujá', preco: 8.00 },
-            { id: 6, nome: 'Morango', preco: 8.00 }
+        const COUPONS = [
+            { code: 'SWEET5', discount: 5 },
+            { code: 'SWEET10', discount: 10 }
+        ];
+
+        const PACKAGINGS = [
+            { id: 'cone', name: 'Saco Cone' },
+            { id: 'kraft', name: 'Kraft' },
+            { id: 'bolha', name: 'Copo Bolha' },
+            { id: 'pacote', name: 'Pacote' }
+        ];
+
+        const SIZES_CONFIG = {
+            cone: ['50g', '80g'],
+            kraft: ['40g', '70g', '90g'],
+            bolha: ['150ml', '180ml', '200ml'],
+            pacote: ['1kg']
+        };
+
+        const PRICES_CONFIG = {
+            cone: { '50g': 6, '80g': 8 },
+            kraft: { '40g': 6, '70g': 8, '90g': 8 },
+            bolha: { '150ml': 7, '180ml': 8, '200ml': 10 },
+            pacote: { '1kg': 90 }
+        };
+
+        const PRODUCTS = [
+            { id: 'leite-ninho', name: 'Leite Ninho', emoji: '🤍' },
+            { id: 'choconinho', name: 'Choconinho', emoji: '🤎' },
+            { id: 'nesquik', name: 'Nesquik', emoji: '💜' },
+            { id: 'churros', name: 'Churros', emoji: '🟤' },
+            { id: 'maracuja', name: 'Maracujá', emoji: '🟡' },
+            { id: 'morango', name: 'Morango', emoji: '🔴' }
         ];
 
         let carrinho = [];
+        let cupomAplicado = null;
+        let selectedPackaging = 'cone';
+
+        function setMinDeliveryDate() {
+            const today = new Date();
+            const minDate = new Date(today.getTime() + 15 * 24 * 60 * 60 * 1000);
+            document.getElementById('deliveryDate').min = minDate.toISOString().split('T')[0];
+        }
 
         function renderizarProdutos() {
             const container = document.getElementById('products');
-            container.innerHTML = produtos.map(p => `
-                <div class="product">
-                    <h3>${p.nome}</h3>
-                    <div class="price">R$ ${p.preco.toFixed(2)}</div>
-                    <button onclick="adicionarAoCarrinho(${p.id}, '${p.nome}', ${p.preco})">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-            `).join('');
+            container.innerHTML = PRODUCTS.map(p => {
+                const sizes = SIZES_CONFIG[selectedPackaging];
+                return `
+                    <div class="product">
+                        <h3>${p.emoji} ${p.name}</h3>
+                        <div class="sizes">
+                            ${sizes.map(size => `
+                                <button class="size-btn" onclick="adicionarAoCarrinho('${p.id}', '${p.name}', '${size}', '${p.emoji}')">
+                                    ${size} - R$ ${PRICES_CONFIG[selectedPackaging][size].toFixed(2)}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        function adicionarAoCarrinho(id, nome, preco) {
-            const item = carrinho.find(i => i.id === id);
+        function adicionarAoCarrinho(id, nome, size, emoji) {
+            const preco = PRICES_CONFIG[selectedPackaging][size];
+            const packaging = PACKAGINGS.find(p => p.id === selectedPackaging)?.name || selectedPackaging;
+            
+            const itemId = `${id}-${size}-${selectedPackaging}`;
+            const item = carrinho.find(i => i.itemId === itemId);
+            
             if (item) {
                 item.quantidade++;
             } else {
-                carrinho.push({ id, nome, preco, quantidade: 1 });
+                carrinho.push({
+                    itemId,
+                    id,
+                    nome,
+                    emoji,
+                    size,
+                    preco,
+                    packaging,
+                    quantidade: 1
+                });
             }
+            atualizarCarrinho();
+        }
+
+        function removerDoCarrinho(itemId) {
+            carrinho = carrinho.filter(i => i.itemId !== itemId);
             atualizarCarrinho();
         }
 
         function atualizarCarrinho() {
             const container = document.getElementById('cartItems');
-            const total = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
             
+            if (carrinho.length === 0) {
+                container.innerHTML = '<div class="empty-cart">Nenhum item no carrinho</div>';
+                document.getElementById('total').textContent = '0.00';
+                document.getElementById('discount').textContent = '0.00';
+                return;
+            }
+
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const desconto = cupomAplicado ? (subtotal * cupomAplicado.discount) / 100 : 0;
+            const total = subtotal - desconto;
+
             container.innerHTML = carrinho.map(item => `
                 <div class="cart-item">
-                    <span>${item.quantidade}x ${item.nome}</span>
+                    <span>${item.quantidade}x ${item.emoji} ${item.nome} (${item.packaging}) – ${item.size}</span>
                     <span>R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+                    <button onclick="removerDoCarrinho('${item.itemId}')">Remover</button>
                 </div>
             `).join('');
 
             document.getElementById('total').textContent = total.toFixed(2);
+            document.getElementById('discount').textContent = desconto.toFixed(2);
+        }
+
+        function aplicarCupom() {
+            const codigo = document.getElementById('couponCode').value.toUpperCase();
+            const cupom = COUPONS.find(c => c.code === codigo);
+            
+            if (cupom) {
+                cupomAplicado = cupom;
+                document.getElementById('couponStatus').innerHTML = `<div class="alert alert-success">✓ Cupom ${cupom.code} aplicado com ${cupom.discount}% de desconto!</div>`;
+                document.getElementById('couponCode').value = '';
+                atualizarCarrinho();
+            } else {
+                document.getElementById('couponStatus').innerHTML = `<div class="alert alert-error">✗ Cupom inválido</div>`;
+            }
         }
 
         function enviarWhatsApp() {
@@ -199,25 +431,53 @@
                 return;
             }
 
-            let mensagem = '*🍿 PEDIDO SWEET TASTE 🍿*\n\n';
-            mensagem += '*Itens do Pedido:*\n';
-            
-            let total = 0;
+            const deliveryDate = document.getElementById('deliveryDate').value;
+            if (!deliveryDate) {
+                alert('Selecione uma data de entrega!');
+                return;
+            }
+
+            const formattedDate = new Date(deliveryDate).toLocaleDateString('pt-BR');
+            const paymentMethod = document.getElementById('paymentMethod').options[document.getElementById('paymentMethod').selectedIndex].text;
+            const observations = document.getElementById('observations').value;
+
+            let itensText = '';
+            let subtotal = 0;
             carrinho.forEach(item => {
-                const subtotal = item.preco * item.quantidade;
-                total += subtotal;
-                mensagem += `• ${item.quantidade}x ${item.nome} - R$ ${subtotal.toFixed(2)}\n`;
+                const itemTotal = item.preco * item.quantidade;
+                subtotal += itemTotal;
+                itensText += `• ${item.quantidade}x ${item.nome} (${item.packaging}) – ${item.size} → R$ ${itemTotal.toFixed(2).replace('.', ',')}\n`;
             });
 
-            mensagem += `\n*Total: R$ ${total.toFixed(2)}*\n`;
-            mensagem += '\nPor favor, confirme o pedido!';
+            const desconto = cupomAplicado ? (subtotal * cupomAplicado.discount) / 100 : 0;
+            const total = subtotal - desconto;
+
+            let message = `_*Pedido via site - SWEET TASTE*_\n_Olá! Gostaria de fazer um pedido de pipoca gourmet._\n\n*Itens do Pedido:*\n${itensText}`;
+            
+            if (cupomAplicado) {
+                message += `\n*Cupom aplicado:* ${cupomAplicado.code}\n*Desconto (${cupomAplicado.discount}%):* -R$ ${desconto.toFixed(2).replace('.', ',')}\n`;
+            }
+
+            message += `*Total do Pedido:* R$ ${total.toFixed(2).replace('.', ',')}\n\n*Data de Entrega:* ${formattedDate}\n\n*Forma de Pagamento:* ${paymentMethod}`;
+            
+            if (observations) {
+                message += `\n\n*Observações:*\n${observations}`;
+            }
+
+            message += `\n\n_Fico no aguardo da confirmação do pedido, obrigado(a)!_`;
 
             const numero = '5521979755580';
-            const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+            const url = `https://wa.me/${numero}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
 
         // Inicializar
+        document.getElementById('packaging').addEventListener('change', (e) => {
+            selectedPackaging = e.target.value;
+            renderizarProdutos();
+        });
+
+        setMinDeliveryDate();
         renderizarProdutos();
     </script>
 </body>
