@@ -339,21 +339,17 @@
 
         function renderizarProdutos() {
             const container = document.getElementById('products');
-            container.innerHTML = PRODUCTS.map(p => {
+            let html = '';
+            PRODUCTS.forEach(p => {
                 const sizes = SIZES_CONFIG[selectedPackaging];
-                return `
-                    <div class="product">
-                        <h3>${p.emoji} ${p.name}</h3>
-                        <div class="sizes">
-                            ${sizes.map(size => `
-                                <button class="size-btn" onclick="adicionarAoCarrinho('${p.id}', '${p.name}', '${size}', '${p.emoji}')">
-                                    ${size} - R$ ${PRICES_CONFIG[selectedPackaging][size].toFixed(2)}
-                                </button>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                html += `<div class="product"><h3>${p.emoji} ${p.name}</h3><div class="sizes">`;
+                sizes.forEach(size => {
+                    const preco = PRICES_CONFIG[selectedPackaging][size];
+                    html += `<button class="size-btn" onclick="adicionarAoCarrinho('${p.id}', '${p.name}', '${size}', '${p.emoji}')">\n                        ${size} - R$ ${preco.toFixed(2)}\n                    </button>`;
+                });
+                html += `</div></div>`;
+            });
+            container.innerHTML = html;
         }
 
         function adicionarAoCarrinho(id, nome, size, emoji) {
