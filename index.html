@@ -57,9 +57,50 @@
 
         .control-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
             font-weight: bold;
             color: #333;
+            font-size: 1.1em;
+        }
+
+        .packaging-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .packaging-box {
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .packaging-box:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .packaging-box.active {
+            border-color: #667eea;
+            background: #e8f0ff;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .packaging-box .emoji {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .packaging-box .name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1em;
         }
 
         .control-group select,
@@ -291,13 +332,25 @@
 
         <div class="controls">
             <div class="control-group">
-                <label>Embalagem:</label>
-                <select id="packaging" onchange="mudarEmbalagem()">
-                    <option value="cone">Saco Cone</option>
-                    <option value="kraft">Kraft</option>
-                    <option value="bolha">Copo Bolha</option>
-                    <option value="pacote">Pacote</option>
-                </select>
+                <label>Escolha a Embalagem:</label>
+                <div class="packaging-options">
+                    <div class="packaging-box active" id="pkg-cone" onclick="selecionarEmbalagem('cone')">
+                        <span class="emoji">🍿</span>
+                        <div class="name">Saco Cone</div>
+                    </div>
+                    <div class="packaging-box" id="pkg-kraft" onclick="selecionarEmbalagem('kraft')">
+                        <span class="emoji">📦</span>
+                        <div class="name">Zip Lock</div>
+                    </div>
+                    <div class="packaging-box" id="pkg-bolha" onclick="selecionarEmbalagem('bolha')">
+                        <span class="emoji">🥤</span>
+                        <div class="name">Copo Bolha</div>
+                    </div>
+                    <div class="packaging-box" id="pkg-pacote" onclick="selecionarEmbalagem('pacote')">
+                        <span class="emoji">📦</span>
+                        <div class="name">Pacote 1kg</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -409,9 +462,22 @@
             document.getElementById('deliveryDate').value = minDate.toISOString().split('T')[0];
         }
 
-        function mudarEmbalagem() {
-            selectedPackaging = document.getElementById('packaging').value;
+        function selecionarEmbalagem(tipo) {
+            selectedPackaging = tipo;
+            
+            // Remover classe active de todos
+            document.querySelectorAll('.packaging-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            
+            // Adicionar classe active ao selecionado
+            document.getElementById('pkg-' + tipo).classList.add('active');
+            
             renderizarProdutos();
+        }
+
+        function mudarEmbalagem() {
+            // Função mantida para compatibilidade
         }
 
         function renderizarProdutos() {
