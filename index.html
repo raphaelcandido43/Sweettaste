@@ -413,6 +413,79 @@
             background: #cc0000;
         }
 
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            background: #f9f9f9;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            display: block;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .qty-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .qty-btn:hover {
+            background: #764ba2;
+        }
+
+        .qty-display {
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .remove-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #cc0000;
+        }
+
         .total-section {
             background: #f0f0f0;
             padding: 15px;
@@ -479,6 +552,46 @@
             background: #1ea952;
         }
 
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-box {
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f8f8;
+        }
+
+        .payment-box:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .payment-box.active {
+            border-color: #667eea;
+            background: #e8f0ff;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .payment-box .emoji {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .payment-box .name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1em;
+        }
+
 
     </style>
 </head>
@@ -525,15 +638,6 @@
         <div class="cart" id="cartSection">
             <h2>🛒 Seu Pedido</h2>
             
-            <div class="coupon-section">
-                <h3>Cupom de Desconto</h3>
-                <div class="coupon-input">
-                    <input type="text" id="couponCode" placeholder="Digite seu cupom">
-                    <button onclick="aplicarCupom()">Aplicar</button>
-                </div>
-                <div id="couponStatus"></div>
-            </div>
-
             <div id="cartItems"></div>
             
             <div class="total-section">
@@ -551,19 +655,36 @@
                 </div>
             </div>
 
-            <div class="control-group">
-                <label>Data de Entrega (mínimo 15 dias):</label>
-                <input type="date" id="deliveryDate">
+            <div class="coupon-section">
+                <h3>Cupom de Desconto</h3>
+                <div class="coupon-input">
+                    <input type="text" id="couponCode" placeholder="Digite seu cupom">
+                    <button onclick="aplicarCupom()">Aplicar</button>
+                </div>
+                <div id="couponStatus"></div>
             </div>
 
             <div class="control-group">
                 <label>Forma de Pagamento:</label>
-                <select id="paymentMethod">
-                    <option value="PIX">PIX</option>
-                    <option value="Cartão de Crédito">Cartão de Crédito</option>
-                    <option value="Cartão de Débito">Cartão de Débito</option>
-                    <option value="Dinheiro">Dinheiro</option>
-                </select>
+                <div class="payment-options">
+                    <div class="payment-box" id="payment-dinheiro" onclick="selecionarPagamento('Dinheiro')">
+                        <span class="emoji">💵</span>
+                        <div class="name">Dinheiro</div>
+                    </div>
+                    <div class="payment-box" id="payment-pix" onclick="selecionarPagamento('PIX')">
+                        <span class="emoji">📱</span>
+                        <div class="name">PIX</div>
+                    </div>
+                    <div class="payment-box" id="payment-cartao" onclick="selecionarPagamento('Cartão')">
+                        <span class="emoji">💳</span>
+                        <div class="name">Cartão</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Data de Entrega (mínimo 15 dias):</label>
+                <input type="date" id="deliveryDate">
             </div>
 
             <div class="control-group">
@@ -632,6 +753,7 @@
         let carrinho = [];
         let cupomAplicado = null;
         let selectedPackaging = 'cone';
+        let selectedPayment = 'Dinheiro';
 
         function setMinDeliveryDate() {
             const today = new Date();
@@ -746,6 +868,18 @@
             atualizarCarrinho();
         }
 
+        function alterarQuantidade(itemId, delta) {
+            const item = carrinho.find(i => i.itemId === itemId);
+            if (item) {
+                item.quantidade += delta;
+                if (item.quantidade <= 0) {
+                    removerDoCarrinho(itemId);
+                } else {
+                    atualizarCarrinho();
+                }
+            }
+        }
+
         function removerDoCarrinho(itemId) {
             carrinho = carrinho.filter(i => i.itemId !== itemId);
             atualizarCarrinho();
@@ -784,9 +918,16 @@
                 const itemTotal = item.preco * item.quantidade;
                 subtotal += itemTotal;
                 html += '<div class="cart-item">';
-                html += '<span>' + item.quantidade + 'x ' + item.emoji + ' ' + item.nome + ' (' + item.packaging + ') – ' + item.size + '</span>';
-                html += '<span>R$ ' + itemTotal.toFixed(2) + '</span>';
-                html += '<button onclick="removerDoCarrinho(\'' + item.itemId + '\')">Remover</button>';
+                html += '<div class="cart-item-info">';
+                html += '<span class="cart-item-name">' + item.nome + ' (' + item.packaging + ') – ' + item.size + '</span>';
+                html += '<span class="cart-item-price">R$ ' + itemTotal.toFixed(2) + '</span>';
+                html += '</div>';
+                html += '<div class="cart-item-controls">';
+                html += '<button class="qty-btn" onclick="alterarQuantidade(\'' + item.itemId + '\', -1)">-</button>';
+                html += '<span class="qty-display">' + item.quantidade + '</span>';
+                html += '<button class="qty-btn" onclick="alterarQuantidade(\'' + item.itemId + '\', 1)">+</button>';
+                html += '<button class="remove-btn" onclick="removerDoCarrinho(\'' + item.itemId + '\')">✕</button>';
+                html += '</div>';
                 html += '</div>';
             });
             
@@ -820,6 +961,22 @@
             }
         }
 
+        function selecionarPagamento(tipo) {
+            selectedPayment = tipo;
+            
+            // Remover classe active de todos
+            document.querySelectorAll('.payment-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            
+            // Adicionar classe active ao selecionado
+            let paymentId = 'payment-' + tipo.toLowerCase();
+            if (tipo === 'Cartão') {
+                paymentId = 'payment-cartao';
+            }
+            document.getElementById(paymentId).classList.add('active');
+        }
+
         function enviarWhatsApp() {
             if (carrinho.length === 0) {
                 alert('Adicione produtos ao carrinho!');
@@ -833,7 +990,6 @@
             }
 
             const formattedDate = new Date(deliveryDate).toLocaleDateString('pt-BR');
-            const paymentMethod = document.getElementById('paymentMethod').value;
             const observations = document.getElementById('observations').value;
 
             let itensText = '';
@@ -854,7 +1010,7 @@
                 message += '\n*Cupom aplicado:* ' + cupomAplicado.code + '\n*Desconto (' + cupomAplicado.discount + '%):* -R$ ' + desconto.toFixed(2).replace('.', ',') + '\n';
             }
 
-            message += '*Total do Pedido:* R$ ' + total.toFixed(2).replace('.', ',') + '\n\n*Data de Entrega:* ' + formattedDate + '\n\n*Forma de Pagamento:* ' + paymentMethod;
+            message += '*Total do Pedido:* R$ ' + total.toFixed(2).replace('.', ',') + '\n\n*Data de Entrega:* ' + formattedDate + '\n\n*Forma de Pagamento:* ' + selectedPayment;
             
             if (observations) {
                 message += '\n\n*Observações:*\n' + observations;
@@ -870,6 +1026,7 @@
         // Inicializar
         setMinDeliveryDate();
         renderizarProdutos();
+        selecionarPagamento('Dinheiro');
     </script>
 </body>
 </html>
