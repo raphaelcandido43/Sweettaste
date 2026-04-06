@@ -448,20 +448,20 @@
         }
 
         .qty-btn {
-            background: #555555;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+            background: #666666 !important;
+            color: white !important;
+            border: none !important;
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 5px !important;
+            cursor: pointer !important;
+            font-weight: bold !important;
+            transition: all 0.3s !important;
         }
 
         .qty-btn:hover {
-            background: #333333;
-            transform: scale(1.05);
+            background: #333333 !important;
+            transform: scale(1.05) !important;
         }
 
         .qty-display {
@@ -641,11 +641,6 @@
             
             <div id="cartItems"></div>
             
-            <div class="control-group">
-                <label>Observações:</label>
-                <input type="text" id="observations" placeholder="">
-            </div>
-
             <div class="control-group">
                 <label>Data de Entrega (mínimo 15 dias):</label>
                 <input type="date" id="deliveryDate">
@@ -991,7 +986,6 @@
             }
 
             const formattedDate = new Date(deliveryDate).toLocaleDateString('pt-BR');
-            const observations = document.getElementById('observations').value;
 
             let itensText = '';
             let subtotal = 0;
@@ -1012,11 +1006,6 @@
             }
 
             message += '*Total do Pedido:* R$ ' + total.toFixed(2).replace('.', ',') + '\n\n*Data de Entrega:* ' + formattedDate + '\n\n*Forma de Pagamento:* ' + selectedPayment;
-            
-            if (observations) {
-                message += '\n\n*Observações:*\n' + observations;
-            }
-
             message += '\n\n_Fico no aguardo da confirmação do pedido, obrigado(a)!_';
 
             const numero = '5521979755580';
