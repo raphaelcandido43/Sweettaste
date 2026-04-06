@@ -251,11 +251,88 @@
             .products-section {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .packaging-options {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 8px;
+            }
+            
+            .packaging-box {
+                padding: 8px;
+            }
+            
+            .packaging-box .emoji {
+                font-size: 1.4em;
+                margin-bottom: 3px;
+            }
+            
+            .packaging-box .name {
+                font-size: 0.7em;
+            }
+            
+            .payment-options {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            
+            .payment-box {
+                padding: 8px;
+            }
+            
+            .payment-box .emoji {
+                font-size: 1.4em;
+                margin-bottom: 3px;
+            }
+            
+            .payment-box .name {
+                font-size: 0.7em;
+            }
         }
 
         @media (max-width: 480px) {
             .products-section {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .packaging-options {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 8px;
+            }
+            
+            .packaging-box {
+                padding: 8px;
+            }
+            
+            .packaging-box .emoji {
+                font-size: 1.4em;
+                margin-bottom: 3px;
+            }
+            
+            .packaging-box .name {
+                font-size: 0.7em;
+            }
+            
+            .payment-options {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            
+            .payment-box {
+                padding: 8px;
+            }
+            
+            .payment-box .emoji {
+                font-size: 1.4em;
+                margin-bottom: 3px;
+            }
+            
+            .payment-box .name {
+                font-size: 0.7em;
+            }
+            
+            .size-btn {
+                padding: 8px 10px;
+                font-size: 0.85em;
             }
         }
 
@@ -319,6 +396,9 @@
             color: #333;
             font-weight: bold;
             font-size: 0.95em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .size-btn:hover {
