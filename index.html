@@ -35,9 +35,25 @@
         }
 
         .header-left {
-            font-size: 0.9em;
-            color: #666;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-left-text h1 {
+            font-size: 1.2em;
+            margin: 0;
+            color: #1E90FF;
+        }
+
+        .header-left-text p {
+            font-size: 0.85em;
+            color: #836FFF;
+            margin: 0;
+        }
+
+        .header-left .emoji {
+            font-size: 2.5em;
         }
 
         .header-center {
@@ -46,13 +62,20 @@
         }
 
         .header-right {
-            font-size: 2em;
+            border: 2px solid #1E90FF;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 1.8em;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header-right:hover {
-            transform: scale(1.1);
+            background: #1E90FF;
+            transform: scale(1.05);
         }
 
         @keyframes addToCart {
@@ -399,11 +422,14 @@
 <body>
     <div class="container">
         <header>
-            <div class="header-left">Sweet Taste Pipoca Gourmet</div>
-            <div class="header-center">
-                <h1>🍿 Sweet Taste</h1>
-                <p class="subtitle">Pipoca Gourmet</p>
+            <div class="header-left">
+                <span class="emoji">🍿</span>
+                <div class="header-left-text">
+                    <h1>Sweet Taste</h1>
+                    <p>Pipoca Gourmet</p>
+                </div>
             </div>
+            <div class="header-center"></div>
             <div class="header-right" onclick="scrollToCart()" title="Ir para o carrinho">🛒</div>
         </header>
 
