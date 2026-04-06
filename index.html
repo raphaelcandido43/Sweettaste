@@ -448,7 +448,7 @@
         }
 
         .qty-btn {
-            background: #667eea;
+            background: #555555;
             color: white;
             border: none;
             width: 30px;
@@ -460,7 +460,8 @@
         }
 
         .qty-btn:hover {
-            background: #764ba2;
+            background: #333333;
+            transform: scale(1.05);
         }
 
         .qty-display {
@@ -640,19 +641,14 @@
             
             <div id="cartItems"></div>
             
-            <div class="total-section">
-                <div class="total-line">
-                    <span>Subtotal:</span>
-                    <span>R$ <span id="subtotal">0.00</span></span>
-                </div>
-                <div class="total-line" id="discountLine" style="display: none;">
-                    <span>Desconto:</span>
-                    <span>-R$ <span id="discount">0.00</span></span>
-                </div>
-                <div class="total-line grand-total">
-                    <span>Total:</span>
-                    <span>R$ <span id="total">0.00</span></span>
-                </div>
+            <div class="control-group">
+                <label>Observações:</label>
+                <input type="text" id="observations" placeholder="">
+            </div>
+
+            <div class="control-group">
+                <label>Data de Entrega (mínimo 15 dias):</label>
+                <input type="date" id="deliveryDate">
             </div>
 
             <div class="coupon-section">
@@ -681,15 +677,20 @@
                     </div>
                 </div>
             </div>
-
-            <div class="control-group">
-                <label>Data de Entrega (mínimo 15 dias):</label>
-                <input type="date" id="deliveryDate">
-            </div>
-
-            <div class="control-group">
-                <label>Observações:</label>
-                <input type="text" id="observations" placeholder="">
+            
+            <div class="total-section">
+                <div class="total-line">
+                    <span>Subtotal:</span>
+                    <span>R$ <span id="subtotal">0.00</span></span>
+                </div>
+                <div class="total-line" id="discountLine" style="display: none;">
+                    <span>Desconto:</span>
+                    <span>-R$ <span id="discount">0.00</span></span>
+                </div>
+                <div class="total-line grand-total">
+                    <span>Total:</span>
+                    <span>R$ <span id="total">0.00</span></span>
+                </div>
             </div>
 
             <button class="whatsapp-btn" onclick="enviarWhatsApp()">📱 Enviar Pedido via WhatsApp</button>
