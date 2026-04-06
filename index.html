@@ -423,10 +423,22 @@
         };
 
         const PRICES_CONFIG = {
-            cone: { '50g': 6, '80g': 8 },
-            kraft: { '40g': 6, '70g': 8, '90g': 8 },
-            bolha: { '150ml': 7, '180ml': 8, '200ml': 10 },
-            pacote: { '1kg': 90 }
+            cone: {
+                tradicionais: { '50g': 6, '80g': 8 },
+                premium: { '50g': 7, '80g': 8 }
+            },
+            kraft: {
+                tradicionais: { '40g': 6, '70g': 7, '90g': 8 },
+                premium: { '40g': 7, '70g': 8, '90g': 10 }
+            },
+            bolha: {
+                tradicionais: { '150ml': 7, '180ml': 8, '200ml': 10 },
+                premium: { '150ml': 9, '180ml': 10, '200ml': 11 }
+            },
+            pacote: {
+                tradicionais: { '1kg': 90 },
+                premium: { '1kg': 90 }
+            }
         };
 
         const PACKAGING_NAMES = {
@@ -494,8 +506,8 @@
                 html += '<div class="sizes">';
                 
                 sizes.forEach(size => {
-                    const preco = PRICES_CONFIG[selectedPackaging][size];
-                    html += '<button class="size-btn" onclick="adicionarAoCarrinho(\'' + p.id + '\', \'' + p.name + '\', \'' + size + '\', \'' + p.emoji + '\')">';
+                    const preco = PRICES_CONFIG[selectedPackaging]['tradicionais'][size];
+                    html += '<button class="size-btn" onclick="adicionarAoCarrinho(\'' + p.id + '\', \'' + p.name + '\', \'' + size + '\', \'' + p.emoji + '\')">'
                     html += size + ' - R$ ' + preco.toFixed(2);
                     html += '</button>';
                 });
@@ -514,7 +526,7 @@
                 html += '<div class="sizes">';
                 
                 sizes.forEach(size => {
-                    const preco = PRICES_CONFIG[selectedPackaging][size];
+                    const preco = PRICES_CONFIG[selectedPackaging]['premium'][size];
                     html += '<button class="size-btn" onclick="adicionarAoCarrinho(\'' + p.id + '\', \'' + p.name + '\', \'' + size + '\', \'' + p.emoji + '\')">';
                     html += size + ' - R$ ' + preco.toFixed(2);
                     html += '</button>';
@@ -525,12 +537,16 @@
             html += '</div>';
             
             container.innerHTML = html;
-        }
-
-        function adicionarAoCarrinho(id, nome, size, emoji) {
-            const preco = PRICES_CONFIG[selectedPackaging][size];
+        }        function adicionarAoCarrinho(id, nome, tamanho, emoji) {
+            // Determinar tipo de sabor
+            let tipo = 'tradicionais';
+            if (PRODUCTS.premium.some(p => p.id === id)) {
+                tipo = 'premium';
+            }
+            
+            const preco = PRICES_CONFIG[selectedPackaging][tipo][tamanho];
             const packaging = PACKAGING_NAMES[selectedPackaging];
-            const itemId = id + '-' + size + '-' + selectedPackaging;
+            const itemId = id + '-' + tamanho + '-' + selectedPackaging;
             
             const item = carrinho.find(i => i.itemId === itemId);
             
@@ -542,7 +558,7 @@
                     id: id,
                     nome: nome,
                     emoji: emoji,
-                    size: size,
+                    size: tamanho,
                     preco: preco,
                     packaging: packaging,
                     quantidade: 1
