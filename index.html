@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
@@ -25,8 +25,8 @@
 
         header {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 30px;
+            border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
@@ -38,10 +38,15 @@
             margin-bottom: 10px;
         }
 
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
         .controls {
             background: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
@@ -52,7 +57,7 @@
 
         .control-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
             color: #333;
         }
@@ -60,9 +65,9 @@
         .control-group select,
         .control-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 1em;
         }
 
@@ -76,95 +81,65 @@
         .product {
             background: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .product:hover {
-            transform: translateY(-10px);
         }
 
         .product h3 {
             color: #667eea;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
         .sizes {
-            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .size-btn {
             background: #f0f0f0;
             border: 2px solid #ddd;
-            padding: 8px 12px;
-            margin: 5px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
+            color: #333;
+            font-weight: bold;
+            font-size: 0.95em;
         }
 
-        .size-btn.active {
+        .size-btn:hover {
             background: #667eea;
             color: white;
             border-color: #667eea;
         }
 
-        .price {
-            font-size: 1.5em;
-            color: #764ba2;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        button {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.3s;
-        }
-
-        button:hover {
-            background: #764ba2;
-        }
-
         .cart {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 20px;
         }
 
         .cart h2 {
             color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item button {
-            background: #ff4444;
-            padding: 5px 10px;
-            font-size: 0.8em;
+            margin-bottom: 20px;
+            font-size: 1.5em;
         }
 
         .coupon-section {
             background: #f9f9f9;
             padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .coupon-section h3 {
+            color: #333;
+            margin-bottom: 10px;
         }
 
         .coupon-input {
@@ -179,32 +154,85 @@
 
         .coupon-input button {
             flex: 0;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
-        .total {
-            font-size: 1.5em;
+        .coupon-input button:hover {
+            background: #764ba2;
+        }
+
+        .coupon-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            background: #f9f9f9;
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+
+        .cart-item button {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+
+        .cart-item button:hover {
+            background: #cc0000;
+        }
+
+        .total-section {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .total-line.grand-total {
             font-weight: bold;
             color: #667eea;
-            margin-top: 15px;
-            text-align: right;
+            font-size: 1.3em;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
         }
 
-        .whatsapp-btn {
-            width: 100%;
-            background: #25D366;
-            padding: 15px;
-            font-size: 1.2em;
-            margin-top: 20px;
-        }
-
-        .whatsapp-btn:hover {
-            background: #1ea952;
+        .empty-cart {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+            font-size: 1.1em;
         }
 
         .alert {
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: bold;
         }
 
         .alert-success {
@@ -219,10 +247,21 @@
             border: 1px solid #f5c6cb;
         }
 
-        .empty-cart {
-            text-align: center;
-            color: #999;
-            padding: 20px;
+        .whatsapp-btn {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1ea952;
         }
     </style>
 </head>
@@ -230,13 +269,13 @@
     <div class="container">
         <header>
             <h1>🍿 Sweet Taste</h1>
-            <p>Pipoca Gourmet Premium</p>
+            <p class="subtitle">Pipoca Gourmet Premium</p>
         </header>
 
         <div class="controls">
             <div class="control-group">
                 <label>Embalagem:</label>
-                <select id="packaging">
+                <select id="packaging" onchange="mudarEmbalagem()">
                     <option value="cone">Saco Cone</option>
                     <option value="kraft">Kraft</option>
                     <option value="bolha">Copo Bolha</option>
@@ -257,28 +296,38 @@
                     <button onclick="aplicarCupom()">Aplicar</button>
                 </div>
                 <div id="couponStatus"></div>
-                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">Cupons disponíveis: SWEET5 (5%) | SWEET10 (10%)</p>
+                <div class="coupon-info">Cupons disponíveis: SWEET5 (5%) | SWEET10 (10%)</div>
             </div>
 
             <div id="cartItems"></div>
             
-            <div class="total">
-                Desconto: -R$ <span id="discount">0.00</span><br>
-                Total: R$ <span id="total">0.00</span>
+            <div class="total-section">
+                <div class="total-line">
+                    <span>Subtotal:</span>
+                    <span>R$ <span id="subtotal">0.00</span></span>
+                </div>
+                <div class="total-line" id="discountLine" style="display: none;">
+                    <span>Desconto:</span>
+                    <span>-R$ <span id="discount">0.00</span></span>
+                </div>
+                <div class="total-line grand-total">
+                    <span>Total:</span>
+                    <span>R$ <span id="total">0.00</span></span>
+                </div>
             </div>
 
             <div class="control-group">
                 <label>Data de Entrega (mínimo 15 dias):</label>
-                <input type="date" id="deliveryDate" min="">
+                <input type="date" id="deliveryDate">
             </div>
 
             <div class="control-group">
                 <label>Forma de Pagamento:</label>
                 <select id="paymentMethod">
-                    <option value="pix">PIX</option>
-                    <option value="credito">Cartão de Crédito</option>
-                    <option value="debito">Cartão de Débito</option>
-                    <option value="dinheiro">Dinheiro</option>
+                    <option value="PIX">PIX</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Cartão de Débito">Cartão de Débito</option>
+                    <option value="Dinheiro">Dinheiro</option>
                 </select>
             </div>
 
@@ -297,13 +346,6 @@
             { code: 'SWEET10', discount: 10 }
         ];
 
-        const PACKAGINGS = [
-            { id: 'cone', name: 'Saco Cone' },
-            { id: 'kraft', name: 'Kraft' },
-            { id: 'bolha', name: 'Copo Bolha' },
-            { id: 'pacote', name: 'Pacote' }
-        ];
-
         const SIZES_CONFIG = {
             cone: ['50g', '80g'],
             kraft: ['40g', '70g', '90g'],
@@ -316,6 +358,13 @@
             kraft: { '40g': 6, '70g': 8, '90g': 8 },
             bolha: { '150ml': 7, '180ml': 8, '200ml': 10 },
             pacote: { '1kg': 90 }
+        };
+
+        const PACKAGING_NAMES = {
+            cone: 'Saco Cone',
+            kraft: 'Kraft',
+            bolha: 'Copo Bolha',
+            pacote: 'Pacote'
         };
 
         const PRODUCTS = [
@@ -335,41 +384,55 @@
             const today = new Date();
             const minDate = new Date(today.getTime() + 15 * 24 * 60 * 60 * 1000);
             document.getElementById('deliveryDate').min = minDate.toISOString().split('T')[0];
+            document.getElementById('deliveryDate').value = minDate.toISOString().split('T')[0];
+        }
+
+        function mudarEmbalagem() {
+            selectedPackaging = document.getElementById('packaging').value;
+            renderizarProdutos();
         }
 
         function renderizarProdutos() {
             const container = document.getElementById('products');
             let html = '';
+            
             PRODUCTS.forEach(p => {
                 const sizes = SIZES_CONFIG[selectedPackaging];
-                html += `<div class="product"><h3>${p.emoji} ${p.name}</h3><div class="sizes">`;
+                html += '<div class="product">';
+                html += '<h3>' + p.emoji + ' ' + p.name + '</h3>';
+                html += '<div class="sizes">';
+                
                 sizes.forEach(size => {
                     const preco = PRICES_CONFIG[selectedPackaging][size];
-                    html += `<button class="size-btn" onclick="adicionarAoCarrinho('${p.id}', '${p.name}', '${size}', '${p.emoji}')">\n                        ${size} - R$ ${preco.toFixed(2)}\n                    </button>`;
+                    html += '<button class="size-btn" onclick="adicionarAoCarrinho(\'' + p.id + '\', \'' + p.name + '\', \'' + size + '\', \'' + p.emoji + '\')">';
+                    html += size + ' - R$ ' + preco.toFixed(2);
+                    html += '</button>';
                 });
-                html += `</div></div>`;
+                
+                html += '</div></div>';
             });
+            
             container.innerHTML = html;
         }
 
         function adicionarAoCarrinho(id, nome, size, emoji) {
             const preco = PRICES_CONFIG[selectedPackaging][size];
-            const packaging = PACKAGINGS.find(p => p.id === selectedPackaging)?.name || selectedPackaging;
+            const packaging = PACKAGING_NAMES[selectedPackaging];
+            const itemId = id + '-' + size + '-' + selectedPackaging;
             
-            const itemId = `${id}-${size}-${selectedPackaging}`;
             const item = carrinho.find(i => i.itemId === itemId);
             
             if (item) {
                 item.quantidade++;
             } else {
                 carrinho.push({
-                    itemId,
-                    id,
-                    nome,
-                    emoji,
-                    size,
-                    preco,
-                    packaging,
+                    itemId: itemId,
+                    id: id,
+                    nome: nome,
+                    emoji: emoji,
+                    size: size,
+                    preco: preco,
+                    packaging: packaging,
                     quantidade: 1
                 });
             }
@@ -386,25 +449,40 @@
             
             if (carrinho.length === 0) {
                 container.innerHTML = '<div class="empty-cart">Nenhum item no carrinho</div>';
+                document.getElementById('subtotal').textContent = '0.00';
                 document.getElementById('total').textContent = '0.00';
                 document.getElementById('discount').textContent = '0.00';
+                document.getElementById('discountLine').style.display = 'none';
                 return;
             }
 
-            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            let html = '';
+            let subtotal = 0;
+            
+            carrinho.forEach(item => {
+                const itemTotal = item.preco * item.quantidade;
+                subtotal += itemTotal;
+                html += '<div class="cart-item">';
+                html += '<span>' + item.quantidade + 'x ' + item.emoji + ' ' + item.nome + ' (' + item.packaging + ') – ' + item.size + '</span>';
+                html += '<span>R$ ' + itemTotal.toFixed(2) + '</span>';
+                html += '<button onclick="removerDoCarrinho(\'' + item.itemId + '\')">Remover</button>';
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
+
             const desconto = cupomAplicado ? (subtotal * cupomAplicado.discount) / 100 : 0;
             const total = subtotal - desconto;
 
-            container.innerHTML = carrinho.map(item => `
-                <div class="cart-item">
-                    <span>${item.quantidade}x ${item.emoji} ${item.nome} (${item.packaging}) – ${item.size}</span>
-                    <span>R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
-                    <button onclick="removerDoCarrinho('${item.itemId}')">Remover</button>
-                </div>
-            `).join('');
-
-            document.getElementById('total').textContent = total.toFixed(2);
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
             document.getElementById('discount').textContent = desconto.toFixed(2);
+            document.getElementById('total').textContent = total.toFixed(2);
+            
+            if (desconto > 0) {
+                document.getElementById('discountLine').style.display = 'flex';
+            } else {
+                document.getElementById('discountLine').style.display = 'none';
+            }
         }
 
         function aplicarCupom() {
@@ -413,11 +491,11 @@
             
             if (cupom) {
                 cupomAplicado = cupom;
-                document.getElementById('couponStatus').innerHTML = `<div class="alert alert-success">✓ Cupom ${cupom.code} aplicado com ${cupom.discount}% de desconto!</div>`;
+                document.getElementById('couponStatus').innerHTML = '<div class="alert alert-success">✓ Cupom ' + cupom.code + ' aplicado com ' + cupom.discount + '% de desconto!</div>';
                 document.getElementById('couponCode').value = '';
                 atualizarCarrinho();
             } else {
-                document.getElementById('couponStatus').innerHTML = `<div class="alert alert-error">✗ Cupom inválido</div>`;
+                document.getElementById('couponStatus').innerHTML = '<div class="alert alert-error">✗ Cupom inválido</div>';
             }
         }
 
@@ -434,45 +512,41 @@
             }
 
             const formattedDate = new Date(deliveryDate).toLocaleDateString('pt-BR');
-            const paymentMethod = document.getElementById('paymentMethod').options[document.getElementById('paymentMethod').selectedIndex].text;
+            const paymentMethod = document.getElementById('paymentMethod').value;
             const observations = document.getElementById('observations').value;
 
             let itensText = '';
             let subtotal = 0;
+            
             carrinho.forEach(item => {
                 const itemTotal = item.preco * item.quantidade;
                 subtotal += itemTotal;
-                itensText += `• ${item.quantidade}x ${item.nome} (${item.packaging}) – ${item.size} → R$ ${itemTotal.toFixed(2).replace('.', ',')}\n`;
+                itensText += '• ' + item.quantidade + 'x ' + item.nome + ' (' + item.packaging + ') – ' + item.size + ' → R$ ' + itemTotal.toFixed(2).replace('.', ',') + '\n';
             });
 
             const desconto = cupomAplicado ? (subtotal * cupomAplicado.discount) / 100 : 0;
             const total = subtotal - desconto;
 
-            let message = `_*Pedido via site - SWEET TASTE*_\n_Olá! Gostaria de fazer um pedido de pipoca gourmet._\n\n*Itens do Pedido:*\n${itensText}`;
+            let message = '_*Pedido via site - SWEET TASTE*_\n_Olá! Gostaria de fazer um pedido de pipoca gourmet._\n\n*Itens do Pedido:*\n' + itensText;
             
             if (cupomAplicado) {
-                message += `\n*Cupom aplicado:* ${cupomAplicado.code}\n*Desconto (${cupomAplicado.discount}%):* -R$ ${desconto.toFixed(2).replace('.', ',')}\n`;
+                message += '\n*Cupom aplicado:* ' + cupomAplicado.code + '\n*Desconto (' + cupomAplicado.discount + '%):* -R$ ' + desconto.toFixed(2).replace('.', ',') + '\n';
             }
 
-            message += `*Total do Pedido:* R$ ${total.toFixed(2).replace('.', ',')}\n\n*Data de Entrega:* ${formattedDate}\n\n*Forma de Pagamento:* ${paymentMethod}`;
+            message += '*Total do Pedido:* R$ ' + total.toFixed(2).replace('.', ',') + '\n\n*Data de Entrega:* ' + formattedDate + '\n\n*Forma de Pagamento:* ' + paymentMethod;
             
             if (observations) {
-                message += `\n\n*Observações:*\n${observations}`;
+                message += '\n\n*Observações:*\n' + observations;
             }
 
-            message += `\n\n_Fico no aguardo da confirmação do pedido, obrigado(a)!_`;
+            message += '\n\n_Fico no aguardo da confirmação do pedido, obrigado(a)!_';
 
             const numero = '5521979755580';
-            const url = `https://wa.me/${numero}?text=${encodeURIComponent(message)}`;
+            const url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(message);
             window.open(url, '_blank');
         }
 
         // Inicializar
-        document.getElementById('packaging').addEventListener('change', (e) => {
-            selectedPackaging = e.target.value;
-            renderizarProdutos();
-        });
-
         setMinDeliveryDate();
         renderizarProdutos();
     </script>
