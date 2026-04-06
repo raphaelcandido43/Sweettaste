@@ -271,6 +271,14 @@
             font-size: 1.3em;
         }
 
+        .product-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            min-height: 40px;
+        }
+
         .products-section.tradicional .product h3 {
             color: #1E90FF;
         }
@@ -608,16 +616,16 @@
 
         const PRODUCTS = {
             tradicionais: [
-                { id: 'leite-ninho', name: 'Leite Ninho', emoji: '🤍', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-leite-ninho-PmqBFruMWRwxoaerBgycgQ.webp' },
-                { id: 'choconinho', name: 'Choconinho', emoji: '🤎', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-choconinho-Q76KJ6c5oqQ4d3V3wwp2BF.webp' },
-                { id: 'nesquik', name: 'Nesquik', emoji: '💜', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-nesquik-dFmiQk5M8nQWatWCKSnW92.webp' },
-                { id: 'chocolate', name: 'Chocolate', emoji: '🍫', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-chocolate-LGGSexRXbctYM6dYCegWuo.webp' }
+                { id: 'leite-ninho', name: 'Leite Ninho', emoji: '🤍', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-leite-ninho-PmqBFruMWRwxoaerBgycgQ.webp', description: 'Suave e cremosa, com o sabor clássico de Leite Ninho' },
+                { id: 'choconinho', name: 'Choconinho', emoji: '🤎', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-choconinho-Q76KJ6c5oqQ4d3V3wwp2BF.webp', description: 'Chocolate suave com toque de leite, perfeita para os amantes de chocolate' },
+                { id: 'nesquik', name: 'Nesquik', emoji: '💜', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-nesquik-dFmiQk5M8nQWatWCKSnW92.webp', description: 'Chocolate intenso com o sabor marcante do Nesquik' },
+                { id: 'chocolate', name: 'Chocolate', emoji: '🍫', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-chocolate-LGGSexRXbctYM6dYCegWuo.webp', description: 'Chocolate puro e delicioso, um clássico irresistível' }
             ],
             premium: [
-                { id: 'pacoca', name: 'Paçoca', emoji: '🟫', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-pacoca-RvEH8EBng42WTN4Umw48px.webp' },
-                { id: 'ovomaltine', name: 'Ovomaltine', emoji: '✨', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-ovomaltine-Z48HEx5W3X2oKYd5hGhJCW.webp' },
-                { id: 'maracuja', name: 'Maracujá', emoji: '🟡', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-maracuja-HPhT7wXqtFQCE9rTdGDAxu.webp' },
-                { id: 'churros', name: 'Churros', emoji: '🟤', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-churros-ATfLRPAd4iCbbyYTFcd3JV.webp' }
+                { id: 'pacoca', name: 'Paçoca', emoji: '🟫', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-pacoca-RvEH8EBng42WTN4Umw48px.webp', description: 'Sabor tradicional de paçoca com toque de amendoim' },
+                { id: 'ovomaltine', name: 'Ovomaltine', emoji: '✨', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-ovomaltine-Z48HEx5W3X2oKYd5hGhJCW.webp', description: 'Sabor único e sofisticado do Ovomaltine, uma experiência premium' },
+                { id: 'maracuja', name: 'Maracujá', emoji: '🟡', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-maracuja-HPhT7wXqtFQCE9rTdGDAxu.webp', description: 'Tropical e refrescante, com o sabor vibrante do maracujá' },
+                { id: 'churros', name: 'Churros', emoji: '🟤', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-churros-ATfLRPAd4iCbbyYTFcd3JV.webp', description: 'Doce e saborosa, com o gosto irresistível de churros' }
             ]
         };
 
@@ -662,6 +670,7 @@
                 html += '<div class="product">';
                 html += '<img src="' + p.image + '" alt="' + p.name + '" class="product-image">';
                 html += '<h3>' + p.name + '</h3>';
+                html += '<p class="product-description">' + p.description + '</p>';
                 html += '<div class="sizes">';
                 
                 sizes.forEach(size => {
@@ -683,6 +692,7 @@
                 html += '<div class="product">';
                 html += '<img src="' + p.image + '" alt="' + p.name + '" class="product-image">';
                 html += '<h3>' + p.name + '</h3>';
+                html += '<p class="product-description">' + p.description + '</p>';
                 html += '<div class="sizes">';
                 
                 sizes.forEach(size => {
