@@ -124,8 +124,8 @@
         }
 
         .section-title.tradicional {
-            color: #4a90e2;
-            border-left: 5px solid #4a90e2;
+            color: #1e40af;
+            border-left: 5px solid #1e40af;
             padding-left: 15px;
         }
 
@@ -156,10 +156,18 @@
             font-size: 1.3em;
         }
 
+        .products-section.tradicional .product h3 {
+            color: #1e40af;
+        }
+
         .sizes {
             display: flex;
             flex-direction: column;
             gap: 8px;
+        }
+
+        .products-section.tradicional {
+            /* Classe para marcar seção tradicional */
         }
 
         .size-btn {
@@ -178,6 +186,17 @@
             background: #667eea;
             color: white;
             border-color: #667eea;
+        }
+
+        .products-section.tradicional .size-btn {
+            background: #1e40af;
+            color: white;
+            border-color: #1e40af;
+        }
+
+        .products-section.tradicional .size-btn:hover {
+            background: #1a3a8a;
+            border-color: #1a3a8a;
         }
 
         .cart {
@@ -498,7 +517,7 @@
             
             // Sabores Tradicionais
             html += '<h2 class="section-title tradicional">Sabores Tradicionais</h2>';
-            html += '<div class="products-section">';
+            html += '<div class="products-section tradicional">';
             PRODUCTS.tradicionais.forEach(p => {
                 const sizes = SIZES_CONFIG[selectedPackaging];
                 html += '<div class="product">';
@@ -518,7 +537,7 @@
             
             // Sabores Premium
             html += '<h2 class="section-title premium">Sabores Premium</h2>';
-            html += '<div class="products-section">';
+            html += '<div class="products-section premium">';
             PRODUCTS.premium.forEach(p => {
                 const sizes = SIZES_CONFIG[selectedPackaging];
                 html += '<div class="product">';
