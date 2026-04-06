@@ -96,6 +96,68 @@
             animation: addToCart 0.6s ease-in-out;
         }
 
+        @keyframes slideInToCart {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(100vw, -100vh) scale(0.5);
+            }
+        }
+
+        .item-slide-animation {
+            animation: slideInToCart 0.8s ease-in-out forwards;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes popupSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px) translateX(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        @keyframes popupSlideOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px) translateX(20px);
+            }
+        }
+
+        .notification-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #1E90FF 0%, #836FFF 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-weight: bold;
+            z-index: 10000;
+            animation: popupSlideIn 0.4s ease-out forwards;
+            max-width: 300px;
+        }
+
+        .notification-popup.hide {
+            animation: popupSlideOut 0.4s ease-out forwards;
+        }
+
         h1 {
             color: #1E90FF;
             font-size: 2em;
@@ -654,8 +716,39 @@
             html += '</div>';
             
             container.innerHTML = html;
-        }        function adicionarAoCarrinho(id, nome, tamanho, emoji) {
-            // Animar o ícone do carrinho
+        }
+
+        function adicionarAoCarrinho(id, nome, tamanho, emoji) {
+            // Encontrar o botao clicado para pegar sua posicao
+            const clickedButton = event.target;
+            const rect = clickedButton.getBoundingClientRect();
+            
+            // Criar elemento flutuante que desliza para o carrinho
+            const floatingItem = document.createElement('div');
+            floatingItem.style.position = 'fixed';
+            floatingItem.style.left = rect.left + 'px';
+            floatingItem.style.top = rect.top + 'px';
+            floatingItem.style.width = rect.width + 'px';
+            floatingItem.style.height = rect.height + 'px';
+            floatingItem.style.background = 'linear-gradient(135deg, #1E90FF 0%, #836FFF 100%)';
+            floatingItem.style.borderRadius = '8px';
+            floatingItem.style.display = 'flex';
+            floatingItem.style.alignItems = 'center';
+            floatingItem.style.justifyContent = 'center';
+            floatingItem.style.color = 'white';
+            floatingItem.style.fontWeight = 'bold';
+            floatingItem.style.fontSize = '1.2em';
+            floatingItem.style.zIndex = '9999';
+            floatingItem.textContent = emoji;
+            floatingItem.classList.add('item-slide-animation');
+            document.body.appendChild(floatingItem);
+            
+            // Remover o elemento apos a animacao
+            setTimeout(() => {
+                floatingItem.remove();
+            }, 800);
+            
+            // Animar o icone do carrinho
             const cartIcon = document.querySelector('.header-right');
             cartIcon.classList.remove('cart-animation');
             void cartIcon.offsetWidth; // Trigger reflow
@@ -687,7 +780,32 @@
                     quantidade: 1
                 });
             }
+            
+            // Mostrar popup de notificacao
+            mostrarNotificacao(nome, tamanho);
+            
             atualizarCarrinho();
+        }
+
+        function mostrarNotificacao(nome, tamanho) {
+            // Remover notificacao anterior se existir
+            const notificacaoAntiga = document.querySelector('.notification-popup');
+            if (notificacaoAntiga) {
+                notificacaoAntiga.classList.add('hide');
+                setTimeout(() => notificacaoAntiga.remove(), 400);
+            }
+            
+            // Criar nova notificacao
+            const notificacao = document.createElement('div');
+            notificacao.classList.add('notification-popup');
+            notificacao.innerHTML = 'Adicionado: ' + nome + ' (' + tamanho + ')';
+            document.body.appendChild(notificacao);
+            
+            // Remover notificacao apos 3 segundos
+            setTimeout(() => {
+                notificacao.classList.add('hide');
+                setTimeout(() => notificacao.remove(), 400);
+            }, 3000);
         }
 
         function removerDoCarrinho(itemId) {
