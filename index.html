@@ -25,22 +25,61 @@
 
         header {
             background: white;
-            padding: 30px;
+            padding: 20px 30px;
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .header-center {
+            flex: 1;
             text-align: center;
+        }
+
+        .header-right {
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .header-right:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes addToCart {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .cart-animation {
+            animation: addToCart 0.6s ease-in-out;
         }
 
         h1 {
             color: #1E90FF;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: 5px;
         }
 
         .subtitle {
             color: #836FFF;
-            font-size: 1.1em;
+            font-size: 0.9em;
         }
 
         .controls {
@@ -360,8 +399,12 @@
 <body>
     <div class="container">
         <header>
-            <h1>🍿 Sweet Taste</h1>
-            <p class="subtitle">Pipoca Gourmet</p>
+            <div class="header-left">Sweet Taste Pipoca Gourmet</div>
+            <div class="header-center">
+                <h1>🍿 Sweet Taste</h1>
+                <p class="subtitle">Pipoca Gourmet</p>
+            </div>
+            <div class="header-right" onclick="scrollToCart()" title="Ir para o carrinho">🛒</div>
         </header>
 
         <div class="controls">
@@ -390,7 +433,7 @@
 
         <div class="products" id="products"></div>
 
-        <div class="cart">
+        <div class="cart" id="cartSection">
             <h2>🛒 Seu Pedido</h2>
             
             <div class="coupon-section">
@@ -572,6 +615,12 @@
             
             container.innerHTML = html;
         }        function adicionarAoCarrinho(id, nome, tamanho, emoji) {
+            // Animar o ícone do carrinho
+            const cartIcon = document.querySelector('.header-right');
+            cartIcon.classList.remove('cart-animation');
+            void cartIcon.offsetWidth; // Trigger reflow
+            cartIcon.classList.add('cart-animation');
+            
             // Determinar tipo de sabor
             let tipo = 'tradicionais';
             if (PRODUCTS.premium.some(p => p.id === id)) {
@@ -604,6 +653,10 @@
         function removerDoCarrinho(itemId) {
             carrinho = carrinho.filter(i => i.itemId !== itemId);
             atualizarCarrinho();
+        }
+
+        function scrollToCart() {
+            document.getElementById('cartSection').scrollIntoView({ behavior: 'smooth' });
         }
 
         function atualizarCarrinho() {
