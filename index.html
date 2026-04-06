@@ -170,15 +170,15 @@
 
         .packaging-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
             margin-bottom: 20px;
         }
 
         .packaging-box {
             border: 2px solid #ddd;
             border-radius: 12px;
-            padding: 20px;
+            padding: 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
@@ -197,15 +197,15 @@
         }
 
         .packaging-box .emoji {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 1.8em;
+            margin-bottom: 5px;
             display: block;
         }
 
         .packaging-box .name {
             font-weight: bold;
             color: #333;
-            font-size: 1em;
+            font-size: 0.85em;
         }
 
         .control-group select,
@@ -555,15 +555,15 @@
 
         .payment-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
             margin-bottom: 20px;
         }
 
         .payment-box {
             border: 2px solid #ddd;
             border-radius: 12px;
-            padding: 20px;
+            padding: 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
@@ -582,15 +582,15 @@
         }
 
         .payment-box .emoji {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 1.8em;
+            margin-bottom: 5px;
             display: block;
         }
 
         .payment-box .name {
             font-weight: bold;
             color: #333;
-            font-size: 1em;
+            font-size: 0.85em;
         }
 
 
@@ -641,11 +641,6 @@
             
             <div id="cartItems"></div>
             
-            <div class="control-group">
-                <label>Data de Entrega (mínimo 15 dias):</label>
-                <input type="date" id="deliveryDate">
-            </div>
-
             <div class="coupon-section">
                 <h3>Cupom de Desconto</h3>
                 <div class="coupon-input">
@@ -671,6 +666,11 @@
                         <div class="name">Cartão</div>
                     </div>
                 </div>
+            </div>
+
+            <div class="control-group">
+                <label>Data de Entrega (mínimo 15 dias):</label>
+                <input type="date" id="deliveryDate">
             </div>
             
             <div class="total-section">
