@@ -152,6 +152,7 @@
             padding: 20px;
             border-radius: 15px;
             margin-bottom: 20px;
+            margin-top: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
@@ -660,7 +661,7 @@
                 const sizes = SIZES_CONFIG[selectedPackaging];
                 html += '<div class="product">';
                 html += '<img src="' + p.image + '" alt="' + p.name + '" class="product-image">';
-                html += '<h3>' + p.emoji + ' ' + p.name + '</h3>';
+                html += '<h3>' + p.name + '</h3>';
                 html += '<div class="sizes">';
                 
                 sizes.forEach(size => {
@@ -681,7 +682,7 @@
                 const sizes = SIZES_CONFIG[selectedPackaging];
                 html += '<div class="product">';
                 html += '<img src="' + p.image + '" alt="' + p.name + '" class="product-image">';
-                html += '<h3>' + p.emoji + ' ' + p.name + '</h3>';
+                html += '<h3>' + p.name + '</h3>';
                 html += '<div class="sizes">';
                 
                 sizes.forEach(size => {
