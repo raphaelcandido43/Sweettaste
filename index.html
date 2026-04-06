@@ -212,6 +212,16 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: block;
         }
 
         .product h3 {
@@ -555,16 +565,16 @@
 
         const PRODUCTS = {
             tradicionais: [
-                { id: 'leite-ninho', name: 'Leite Ninho', emoji: '🤍' },
-                { id: 'choconinho', name: 'Choconinho', emoji: '🤎' },
-                { id: 'nesquik', name: 'Nesquik', emoji: '💜' },
-                { id: 'chocolate', name: 'Chocolate', emoji: '🍫' }
+                { id: 'leite-ninho', name: 'Leite Ninho', emoji: '🤍', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-leite-ninho-PmqBFruMWRwxoaerBgycgQ.webp' },
+                { id: 'choconinho', name: 'Choconinho', emoji: '🤎', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-choconinho-Q76KJ6c5oqQ4d3V3wwp2BF.webp' },
+                { id: 'nesquik', name: 'Nesquik', emoji: '💜', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-nesquik-dFmiQk5M8nQWatWCKSnW92.webp' },
+                { id: 'chocolate', name: 'Chocolate', emoji: '🍫', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-chocolate-LGGSexRXbctYM6dYCegWuo.webp' }
             ],
             premium: [
-                { id: 'pacoca', name: 'Paçoca', emoji: '🟫' },
-                { id: 'ovomaltine', name: 'Ovomaltine', emoji: '✨' },
-                { id: 'maracuja', name: 'Maracujá', emoji: '🟡' },
-                { id: 'churros', name: 'Churros', emoji: '🟤' }
+                { id: 'pacoca', name: 'Paçoca', emoji: '🟫', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-pacoca-RvEH8EBng42WTN4Umw48px.webp' },
+                { id: 'ovomaltine', name: 'Ovomaltine', emoji: '✨', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-ovomaltine-Z48HEx5W3X2oKYd5hGhJCW.webp' },
+                { id: 'maracuja', name: 'Maracujá', emoji: '🟡', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-maracuja-HPhT7wXqtFQCE9rTdGDAxu.webp' },
+                { id: 'churros', name: 'Churros', emoji: '🟤', image: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663299151704/VwESV7TtC8drfEj6E7hyi4/pipoca-churros-ATfLRPAd4iCbbyYTFcd3JV.webp' }
             ]
         };
 
@@ -607,6 +617,7 @@
             PRODUCTS.tradicionais.forEach(p => {
                 const sizes = SIZES_CONFIG[selectedPackaging];
                 html += '<div class="product">';
+                html += '<img src="' + p.image + '" alt="' + p.name + '" class="product-image">';
                 html += '<h3>' + p.emoji + ' ' + p.name + '</h3>';
                 html += '<div class="sizes">';
                 
@@ -627,6 +638,7 @@
             PRODUCTS.premium.forEach(p => {
                 const sizes = SIZES_CONFIG[selectedPackaging];
                 html += '<div class="product">';
+                html += '<img src="' + p.image + '" alt="' + p.name + '" class="product-image">';
                 html += '<h3>' + p.emoji + ' ' + p.name + '</h3>';
                 html += '<div class="sizes">';
                 
