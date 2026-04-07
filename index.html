@@ -870,7 +870,7 @@
             const today = new Date();
             const minDate = new Date(today.getTime() + 15 * 24 * 60 * 60 * 1000);
             document.getElementById('deliveryDate').min = minDate.toISOString().split('T')[0];
-            document.getElementById('deliveryDate').value = minDate.toISOString().split('T')[0];
+            document.getElementById('deliveryDate').value = '';
         }
 
         function selecionarEmbalagem(tipo) {
@@ -1014,7 +1014,7 @@
             }
             
             if (carrinho.length === 0) {
-                container.innerHTML = '<div class="empty-cart">Nenhum item no carrinho</div>';
+                container.innerHTML = '<div class="empty-cart">🛒 Seu carrinho está vazio<br><br>Adicione alguns sabores deliciosos para começar!</div>';
                 document.getElementById('subtotal').textContent = '0.00';
                 document.getElementById('total').textContent = '0.00';
                 document.getElementById('discount').textContent = '0.00';
@@ -1064,12 +1064,19 @@
             
             if (cupom) {
                 cupomAplicado = cupom;
-                document.getElementById('couponStatus').innerHTML = '<div class="alert alert-success">✓ Cupom ' + cupom.code + ' aplicado com ' + cupom.discount + '% de desconto!</div>';
+                document.getElementById('couponStatus').innerHTML = '<div class="alert alert-success">✓ Cupom ' + cupom.code + ' aplicado com ' + cupom.discount + '% de desconto! <button onclick="removerCupom()" style="background: #ff4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-left: 10px;">✕</button></div>';
                 document.getElementById('couponCode').value = '';
                 atualizarCarrinho();
             } else {
                 document.getElementById('couponStatus').innerHTML = '<div class="alert alert-error">✗ Cupom inválido</div>';
             }
+        }
+
+        function removerCupom() {
+            cupomAplicado = null;
+            document.getElementById('couponStatus').innerHTML = '';
+            document.getElementById('couponCode').value = '';
+            atualizarCarrinho();
         }
 
         function selecionarPagamento(tipo) {
